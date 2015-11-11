@@ -78,6 +78,11 @@ app.post('/movies', splat.addMovie);
 app.put('/movies/:id', splat.editMovie);
 
 app.delete('/movies/:id', splat.deleteMovie);
+
+app.get('/movies/:id/reviews', splat.getReviews);
+
+app.post('/movies/:id/reviews', splat.addReview);
+
 // ADD CODE to support other routes listed on assignment handout
 
 // location of app's static content ... may need to ADD CODE

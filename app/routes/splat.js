@@ -5,7 +5,7 @@ var config = require("../config");
 
 // Connect to database, using credentials specified in your config module
 mongoose.connect('mongodb://' +config.dbuser+ ':' +config.dbpass+
-                '@10.15.2.164/' + config.dbname);
+                '@ds053164.mongolab.com:53164/' + config.dbname);
 
 // Schemas
 var MovieSchema = new mongoose.Schema({
@@ -118,6 +118,18 @@ exports.deleteMovie = function(req, res) {
     });
 }
 
+exports.getReviews = function(req, res) {
+
+}
+
+exports.addReview = function(req, res) {
+
+}
+
+exports.playMovie = function(req, res) {
+  
+}
+
 // NOTE, you would use uploadImage only if you chose to implement
 // image-upload using Blobs with the HTML5 API.  If instead your
 // server saves images directly from your model's poster value,
@@ -143,7 +155,3 @@ exports.deleteMovie = function(req, res) {
 // 	}
 //     });
 // };
-
-
-
-
