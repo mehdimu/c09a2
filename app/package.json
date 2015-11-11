@@ -1,8 +1,8 @@
 {
   "name": "splat",
   "version": "1.0.0",
-  "description": "CSCC09 assignment2",
-  "main": "index.js",
+  "description": "A2",
+  "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -14,11 +14,10 @@
     "errorhandler": "^1.4.2",
     "express": "^4.13.3",
     "express-session": "^1.12.1",
-    "fs": "0.0.2",
     "method-override": "^2.3.5",
+    "mongoose": "^4.2.5",
     "morgan": "^1.6.1",
     "multer": "^1.1.0",
-    "serve-index": "^1.7.2",
-    "url": "^0.11.0"
+    "serve-index": "^1.7.2"
   }
 }

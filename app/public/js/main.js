@@ -1,7 +1,7 @@
 'use strict';
 
 var splat =  splat || {};
- 
+
 splat.AppRouter = Backbone.Router.extend({
 
     routes: {
@@ -21,7 +21,20 @@ splat.AppRouter = Backbone.Router.extend({
         this.movies = new splat.Movies();  // Movies collection
 	splat.moviesView = new splat.MoviesView({collection:this.movies});
 	// create a jQuery promise to gate access to the fetched collection
-        this.moviesLoaded = this.movies.fetch();  // used by add()
+        this.moviesLoaded = this.movies.fetch();
+        //                         silent: true,
+        //                         self: this,
+        //                         // success activates on 200 response code
+        //                         success: function(coll,resp) {
+        //                         this.moviesView = new splat.MoviesView({
+        //                         collection: self.movies});
+        //                         },
+        //                         // error activates on non-200 response code
+        //                         error: function(coll,resp) {
+        //                             splat.utils.showAlert('Error',
+        //                                 resp.responseText, 'alert-danger');
+        //                         }
+        // });  // used by add()
         this.headerView = new splat.Header();
         $('.header').html(this.headerView.render().el);
     },
@@ -32,7 +45,7 @@ splat.AppRouter = Backbone.Router.extend({
         };
         splat.app.showView('#content', this.homeView);
 	// hilite "Splat!" in header
-        this.headerView.selectMenuItem('home-menu'); 
+        this.headerView.selectMenuItem('home-menu');
     },
 
     about: function() {
@@ -51,7 +64,7 @@ splat.AppRouter = Backbone.Router.extend({
 	    splat.moviesView = new splat.MoviesView({collection:self.movies});
             splat.app.showView('#content', splat.moviesView);
 	});
-        this.headerView.selectMenuItem('browse-menu'); 
+        this.headerView.selectMenuItem('browse-menu');
     },
 
     editMovie: function(id) {
@@ -106,7 +119,7 @@ splat.AppRouter = Backbone.Router.extend({
 Backbone.View.prototype.close = function () {
     /* When closing a view, give it a chance to perform it's own custom
      * onClose processing, e.g. handle subview closes, then remove the
-     * view from the DOM and unbind events from it.  Based on approach 
+     * view from the DOM and unbind events from it.  Based on approach
      * suggested by D. Bailey (author of Marionette) */
     if (this.onClose) {
         this.onClose();

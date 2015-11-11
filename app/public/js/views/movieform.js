@@ -82,7 +82,7 @@ splat.MovieForm = Backbone.View.extend({
                 splat.utils.showAlert('Success!', 'Movie saved', 'alert-success');
             },
             error: function (model, err) {
-                splat.utils.requestFailed(err);
+                splat.utils.showAlert('Error', err.responseText, 'alert-danger');
             }
         });
     }

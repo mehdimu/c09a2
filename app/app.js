@@ -1,6 +1,6 @@
 // app.js Node.js server
 
-"use strict;"   // flag JS errors 
+"use strict;"   // flag JS errors
 
 /* Module dependencies:
  *
@@ -9,9 +9,9 @@
  * the value returned by require(), in this case e.g. splat.api
  * The convention is use the same name for variable and module.
  */
-var http = require('http'),   // ADD CODE
+var http = require("http"),   // ADD CODE
     // NOTE, use the version of "express" linked to the assignment handout
-    express = require("express"),   // ADD CODE
+    express = require('express'),   // ADD CODE
     fs = require("fs"),
     path = require("path"),
     url = require("url"),
@@ -28,8 +28,7 @@ var http = require('http'),   // ADD CODE
     // config is an object module, that defines app-config attribues,
     // such as "port", DB parameters
     config = require("./config"),
-    splat = require('./routes/splat.js');
-      
+    splat = require('./routes/splat.js');  // route handlers ... ADD CODE
 
 var app = express();  // Create Express app server
 
@@ -40,10 +39,10 @@ app.set('port', process.env.PORT || config.port);
 
 // activate basic HTTP authentication (to protect your solution files)
 // REPLACE username/password, but DO NOT use your utorid credentials!!
-//app.use(basicAuth('HJ', 'xmen'));
+//app.use(basicAuth('username', 'password'));
 
 // change param value to control level of logging  ... ADD CODE
-app.use(logger('dev'));  // 'default', 'short', 'tiny', 'dev'
+app.use(logger("default"));  // 'default', 'short', 'tiny', 'dev'
 
 // use compression (gzip) to reduce size of HTTP responses
 app.use(compression());
@@ -54,10 +53,8 @@ app.use(bodyParser.urlencoded({
         extended: true
 }));
 
-
-
 // set file-upload directory for poster images
-app.use(multer({dest: __dirname + './public/img/uploads/'}).any());
+app.use(multer({dest: __dirname + '/public/img/uploads/'}).array('photos', 12));
 
 // checks req.body for HTTP method overrides
 app.use(methodOverride());
@@ -72,14 +69,16 @@ app.use(methodOverride());
 app.get('/', splat.api);
 
 // Retrieve a single movie by its id attribute
-// app.get('/movies', splat.getMovies);
 app.get('/movies/:id', splat.getMovie);
-// app.post('/movies', splat.addMovie);
-// app.post('/movies/:id', splat.editMovie);
-// app.delete('/movies/:id', splat.deleteMovie);
-// app.get('/movies/:id/reviews', splat.getReviews);
-// app.post('/movies/:id/reviews', splat.addReviews);
-// app.get('/movies/:id/video', splat.playMovie);
+
+app.get('/movies', splat.getMovies);
+
+app.post('/movies', splat.addMovie);
+
+app.put('/movies/:id', splat.editMovie);
+
+app.delete('/movies/:id', splat.deleteMovie);
+// ADD CODE to support other routes listed on assignment handout
 
 // location of app's static content ... may need to ADD CODE
 app.use(express.static(__dirname + "/public"));
@@ -89,13 +88,13 @@ app.use(errorHandler({ dumpExceptions:true, showStack:true }));
 
 // Default-route middleware, in case none of above match
 app.use(function (req, res) {
-	res.status(404).send("Route not found");
-    //res.send("not found");
+	// ADD CODE
+    res.send('Did not find the route!');
 });
 
 
 // Start HTTP server
 http.createServer(app).listen(app.get('port'), function () {
-    console.log("Express server listening on port %d in %s mode",
-    		app.get('port'), config.env );
+    console.log("Express server listening on port %d in %s mode at %s",
+    		app.get('port'), config.env);
 });
