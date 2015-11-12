@@ -15,14 +15,14 @@ splat.MoviesView = Backbone.View.extend({
     // moviesTemplate function to the movies collection with the movieTemplate.
     // Append the resulting HTML to the MoviesView el (DOM element).
     render: function() {
-	var movieThumbView = new splat.MovieThumb();
-	var html = this.moviesTemplate({
-	    movies: this.collection,
-	    movieTemplate: movieThumbView.template
-        });
-	$(this.el).append(html);
+    	var movieThumbView = new splat.MovieThumb();
+    	var html = this.moviesTemplate({
+    	    movies: this.collection,
+    	    movieTemplate: movieThumbView.template
+            });
+    	$(this.el).append(html);
 
-	// support chaining
+    	// support chaining
         return this;
     },
 

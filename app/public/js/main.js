@@ -6,35 +6,25 @@ splat.AppRouter = Backbone.Router.extend({
 
     routes: {
         "": "home",
-	"about": "about",
+        "about": "about",
         "movies": "browse",
-	"movies/add": "addMovie",
+        "movies/add": "addMovie",
         "movies/:id": "editMovie",
-	"*default": "defaultRoute"
+        "movies/:id/reviews": "review",
+        "*default": "defaultRoute"
     },
 
     defaultRoute: function() {
-	this.home();
+	   this.home();
     },
 
     initialize: function() {
         this.movies = new splat.Movies();  // Movies collection
-	splat.moviesView = new splat.MoviesView({collection:this.movies});
-	// create a jQuery promise to gate access to the fetched collection
+        splat.moviesView = new splat.MoviesView({collection:this.movies});
+        this.reviews = new splat.Reviews();
+        // create a jQuery promise to gate access to the fetched collection
         this.moviesLoaded = this.movies.fetch();
-        //                         silent: true,
-        //                         self: this,
-        //                         // success activates on 200 response code
-        //                         success: function(coll,resp) {
-        //                         this.moviesView = new splat.MoviesView({
-        //                         collection: self.movies});
-        //                         },
-        //                         // error activates on non-200 response code
-        //                         error: function(coll,resp) {
-        //                             splat.utils.showAlert('Error',
-        //                                 resp.responseText, 'alert-danger');
-        //                         }
-        // });  // used by add()
+        this.reviewsLoaded = this.reviews.fetch();
         this.headerView = new splat.Header();
         $('.header').html(this.headerView.render().el);
     },
@@ -58,32 +48,47 @@ splat.AppRouter = Backbone.Router.extend({
     },
 
     browse: function() {
-	var self = this;
+    	var self = this;
         this.moviesBrowse = this.movies.fetch();
-	this.moviesBrowse.done(function() {
-	    splat.moviesView = new splat.MoviesView({collection:self.movies});
-            splat.app.showView('#content', splat.moviesView);
-	});
+    	this.moviesBrowse.done(function() {
+    	    splat.moviesView = new splat.MoviesView({collection:self.movies});
+                splat.app.showView('#content', splat.moviesView);
+    	});
         this.headerView.selectMenuItem('browse-menu');
     },
 
+    review: function(id) {
+        var self = this;
+        if (!this.reviewsView) {
+            this.reviewsView = new splat.ReviewsView({collection: self.reviews});
+        };
+        splat.app.showView('#content', splat.reviewsView);
+        // this.reviewsBrowse = this.reviews.fetch();
+        // this.reviewsBrowse.done(function() {
+        //     console.log("something here");
+        //     splat.reviewsView = new splat.ReviewsView({collection: self.reviews});
+        //     splat.app.showView('#content', splat.reviewsView);
+        // });
+        // this.headerView.selectMenuItem('browse-menu');
+    },
+
     editMovie: function(id) {
-	var self = this;
-	this.moviesLoaded.done(function() {
-	    self.movieView(id);
+    	var self = this;
+    	this.moviesLoaded.done(function() {
+    	    self.movieView(id);
         });
-	// no menu item active at this point
-	this.headerView.selectMenuItem();
+    	// no menu item active at this point
+    	this.headerView.selectMenuItem();
     },
 
     addMovie: function() {
         var movie = new splat.Movie();  // create new Movie
-	// Details expects movie to have a collection
-	movie.collection = this.movies;
-	this.moviesLoaded.done(function() {
-            var detailsView = new splat.Details({model: movie});
-            splat.app.showView('#content', detailsView);
-	});
+    	// Details expects movie to have a collection
+    	movie.collection = this.movies;
+    	this.moviesLoaded.done(function() {
+                var detailsView = new splat.Details({model: movie});
+                splat.app.showView('#content', detailsView);
+    	});
         this.headerView.selectMenuItem('add-menu');  // Add menu item active
     },
 
@@ -95,7 +100,7 @@ splat.AppRouter = Backbone.Router.extend({
         } else {
              var detailsView = new splat.Details({model: movieModel});
              splat.app.showView('#content', detailsView);
-	}
+	       }
     },
 
     /* showView invokes close() on the currentView before replacing it
@@ -130,7 +135,7 @@ Backbone.View.prototype.close = function () {
 };
 
 splat.utils.loadTemplates(['Home', 'Header', 'About', 'MovieThumb',
-    			'MovieForm', 'MovieImg', 'Details' ] , function() {
+    			'MovieForm', 'MovieImg', 'Details', 'Reviews' ] , function() {
     splat.app = new splat.AppRouter();
     Backbone.history.start();
 });

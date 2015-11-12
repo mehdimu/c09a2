@@ -26,12 +26,22 @@ var MovieSchema = new mongoose.Schema({
     dated: {type: Date, required: true}
 });
 
+var ReviewSchema = new mongoose.Schema({
+    freshness: {type: Number, required: true},
+    reviewText: {type: String, required: true},
+    reviewName: {type: String, required: true},
+    reviewAffil: {type: String, required: true},
+    movieId: {type: mongoose.Schema.Types.ObjectId, ref: 'Movie'}
+});
+
 // Constraints
 // each title:director pair must be unique; duplicates are dropped
 MovieSchema.index({title: 1});  // ADD CODE
+// ReviewSchema.index()
 
 // Models
 var MovieModel = mongoose.model('Movie', MovieSchema);
+var ReviewModel = mongoose.model('Review', ReviewSchema);
 
 var fs = require('fs'),
     // path is "../" since splat.js is in routes/ sub-dir
@@ -119,15 +129,33 @@ exports.deleteMovie = function(req, res) {
 }
 
 exports.getReviews = function(req, res) {
-
+    ReviewModel.find(function(err, review) {
+        if (err) {
+            res.status(500).send("Sorry, unable to retrive reviews at this time" + err.message);
+        }
+        review.forEach(function(item) {
+            console.log("Received a GET request for _id: " + item._id);
+        })
+        res.send(review);
+    });
 }
 
 exports.addReview = function(req, res) {
-
+    var review = new ReviewModel(req.body);
+    review.save(function(err, entry) {
+        if (err) {
+            console.log(err.message);
+            res.status(500).send(err.message);
+        }
+        else {
+            console.log("Saved");
+            res.send(entry);
+        }
+    });
 }
 
 exports.playMovie = function(req, res) {
-  
+
 }
 
 // NOTE, you would use uploadImage only if you chose to implement

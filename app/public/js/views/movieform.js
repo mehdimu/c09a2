@@ -12,7 +12,7 @@ splat.MovieForm = Backbone.View.extend({
 
     render:function () {
         this.$el.html(this.template(this.model.toJSON()));
-	return this;
+        return this;
     },
 
     // note that "delete" is a function bound to an individual Movie
