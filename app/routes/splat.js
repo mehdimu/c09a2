@@ -135,6 +135,7 @@ exports.getReviews = function(req, res) {
         }
         review.forEach(function(item) {
             console.log("Received a GET request for _id: " + item._id);
+            console.log("Send reviews");
         })
         res.send(review);
     });

@@ -22,6 +22,7 @@ splat.AppRouter = Backbone.Router.extend({
         this.movies = new splat.Movies();  // Movies collection
         splat.moviesView = new splat.MoviesView({collection:this.movies});
         this.reviews = new splat.Reviews();
+        splat.reviewsView = new splat.ReviewsView({collection: this.reviews});
         // create a jQuery promise to gate access to the fetched collection
         this.moviesLoaded = this.movies.fetch();
         this.reviewsLoaded = this.reviews.fetch();
@@ -59,17 +60,11 @@ splat.AppRouter = Backbone.Router.extend({
 
     review: function(id) {
         var self = this;
-        if (!this.reviewsView) {
-            this.reviewsView = new splat.ReviewsView({collection: self.reviews});
-        };
-        splat.app.showView('#content', splat.reviewsView);
-        // this.reviewsBrowse = this.reviews.fetch();
-        // this.reviewsBrowse.done(function() {
-        //     console.log("something here");
-        //     splat.reviewsView = new splat.ReviewsView({collection: self.reviews});
-        //     splat.app.showView('#content', splat.reviewsView);
-        // });
-        // this.headerView.selectMenuItem('browse-menu');
+        this.reviewsBrowse = this.reviews.fetch();
+        this.reviewsBrowse.done(function() {
+            splat.reviewsView = new splat.ReviewsView({collection: self.reviews, id: id});
+            splat.app.showView('#content', splat.reviewsView);
+        });
     },
 
     editMovie: function(id) {
@@ -135,7 +130,7 @@ Backbone.View.prototype.close = function () {
 };
 
 splat.utils.loadTemplates(['Home', 'Header', 'About', 'MovieThumb',
-    			'MovieForm', 'MovieImg', 'Details', 'Reviews' ] , function() {
+    			'MovieForm', 'MovieImg', 'Details', 'Reviews', 'ReviewThumb' ] , function() {
     splat.app = new splat.AppRouter();
     Backbone.history.start();
 });

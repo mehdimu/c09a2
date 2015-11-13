@@ -70,15 +70,15 @@ splat.MovieForm = Backbone.View.extend({
     },
 
     saveMovie: function() {
-	var newMovie = this.model.isNew();
-	this.model.collection.create(this.model, {
+    	var newMovie = this.model.isNew();
+    	this.model.collection.create(this.model, {
             wait: true,
             success: function(model, response) {
                 // Set the URL, to reflect the assigned movie-id for new movies
-		if (newMovie) {
+                if (newMovie) {
                     splat.app.navigate('movies/' + model._id, {replace:true});
-        	    model.reviews.url = '/movies/' + model._id + '/reviews';
-		};
+            	    model.reviews = '/movies/' + model._id + '/reviews';
+                };
                 splat.utils.showAlert('Success!', 'Movie saved', 'alert-success');
             },
             error: function (model, err) {
