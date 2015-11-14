@@ -130,7 +130,8 @@ Backbone.View.prototype.close = function () {
 };
 
 splat.utils.loadTemplates(['Home', 'Header', 'About', 'MovieThumb',
-    			'MovieForm', 'MovieImg', 'Details', 'Reviews', 'ReviewThumb' ] , function() {
+    			'MovieForm', 'MovieImg', 'Details', 'Reviews', 'ReviewThumb', 
+                'Reviewer' ] , function() {
     splat.app = new splat.AppRouter();
     Backbone.history.start();
 });

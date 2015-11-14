@@ -4,6 +4,10 @@ var splat =  splat || {};
 
 splat.ReviewsView = Backbone.View.extend({
 
+    events: {
+        "click #reviewsave" : "reviewSave",
+    },
+    
     reviewsTemplate: _.template([
             "<% reviewTemplate(review.toJSON()); %>",
     ].join('')),
@@ -22,6 +26,8 @@ splat.ReviewsView = Backbone.View.extend({
         // can all be chained, as in this.renderX().renderY().renderZ() ...
         var self = this;
         var reviewThumbView = new splat.ReviewThumb();
+        var reviewerView = new splat.Reviewer();
+        $(self.el).append(reviewerView.template());
         this.collection.each(function(review) {
             if (review.get('movieId') === self.id) {
                 var html = reviewThumbView.template(review.toJSON());
@@ -31,6 +37,10 @@ splat.ReviewsView = Backbone.View.extend({
 
         // support chaining
         return this;
+    },
+
+    reviewSave: function() {
+        alert("it works");
     }
 
 });
