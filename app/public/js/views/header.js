@@ -13,11 +13,25 @@ var splat =  splat || {};
   * @constructor HeaderView constructs the app header view
   */
 splat.Header = Backbone.View.extend({
-
+    
+    events: {
+        ""
+        "change input[type=radio]" : "sortOrder"
+    },
+    
     render: function() {
-	// create DOM content for header
+	     // create DOM content for header
+
         this.$el.html(this.template()); 
         return this;
+    },
+
+    sortOrder: function(event) {
+        console.log("i am in sortOrder");
+        event.stopPropagation();
+        splat.order = event.target.value;  // set app-level order field
+        Backbone.trigger('orderevent', event);  // trigger event for other views
+        $('.dropdown').removeClass('open');  // close the dropdown menu
     },
 
     /**

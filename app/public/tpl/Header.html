@@ -15,15 +15,19 @@
 
             <div id="nav-collapse" class="navbar-collapse collapse">
                 <ul class="nav navbar-nav pull-left">
-		          <li id="orderdrop" class="browse-menu dropdown">
-                    <a class="dropdown-toggle" data-toggle="dropdown" id="ordering" href="#movies" >Browse Movies</a>
-                      <ul class="dropdown-menu">
-                        <form>
-                            <label id="sortord">Sort Order</label>
-                            <li><label  id="opt" ><input type="radio" name="optradio">Title</label></li>
-                            <li><label  id="opt" ><input type="radio" name="optradio">Director</label></li>
-                        </form>
-                    </ul>
+                    <li id="orderdrop" class="browse-menu dropdown">
+                       <a class="dropdown-toggle" data-toggle="dropdown" id="ordering" href="#movies" >Browse Movies</a>
+                       <div class="dropdown-menu" id="orderDiv">
+                         <form id="orderForm">
+                           <fieldset>
+                             <h4>Sort Order</h4>
+                             <input class="sortOrder" name="sortOrder" type="radio" value="title" />
+                               <label for="sortOrder">Title</label><br/>
+                             <input class="sortOrder" name="sortOrder" type="radio" value="director"/>
+                               <label for="sortOrder">Director</label><br/>
+                           </fieldset>
+                         </form>
+                       </div>
                     </li>
                     <li id="addMovie" class="add-menu" ><a href="#movies/add">
 		      <span class="icon-edit icon-white"></span>Add Movie</a></li>
