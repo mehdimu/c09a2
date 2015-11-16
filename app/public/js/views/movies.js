@@ -29,12 +29,14 @@ splat.MoviesView = Backbone.View.extend({
         // sort collection before rendering it - implicitly uses comparator
     
         this.collection.sort();
+      
         // rest of render, as before
         var movieThumbView = new splat.MovieThumb();
         var html = this.moviesTemplate({
             movies: this.collection,
             movieTemplate: movieThumbView.template
         });
+        
         $(this.el).html("");
         $(this.el).append(html);
 
