@@ -4,6 +4,9 @@ body {
     color: white;
 }
 
+#sortOrd{
+    color:black;
+}
 .brand {
     font-family: 'Arvo';
 }

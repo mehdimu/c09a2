@@ -24,10 +24,10 @@ splat.MoviesView = Backbone.View.extend({
         // models
         console.log("i am in render of movies");
         this.collection.comparator = function(movie) {
-            console.log(splat.order);
             return movie.get(splat.order); // ADD CODE to select comparator field
         };
         // sort collection before rendering it - implicitly uses comparator
+    
         this.collection.sort();
         // rest of render, as before
         var movieThumbView = new splat.MovieThumb();
@@ -35,6 +35,7 @@ splat.MoviesView = Backbone.View.extend({
             movies: this.collection,
             movieTemplate: movieThumbView.template
         });
+        $(this.el).html("");
         $(this.el).append(html);
 
        	// support chaining
