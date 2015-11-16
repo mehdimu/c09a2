@@ -60,11 +60,14 @@ splat.AppRouter = Backbone.Router.extend({
 
     review: function(id) {
         var self = this;
-        this.reviewsBrowse = this.reviews.fetch();
-        this.reviewsBrowse.done(function() {
-            splat.reviewsView = new splat.ReviewsView({collection: self.reviews, id: id});
+        var review = new splat.Review();
+        review.collection = this.reviews;
+        this.reviewsLoaded.done(function() {
+            splat.reviewsView = new splat.ReviewsView({model: review, id: id});
             splat.app.showView('#content', splat.reviewsView);
-        });
+        })
+
+        
     },
 
     editMovie: function(id) {

@@ -6,6 +6,7 @@ splat.ReviewsView = Backbone.View.extend({
 
     events: {
         "click #reviewsave" : "reviewSave",
+        "change .reviewattr" : "change",
     },
     
     reviewsTemplate: _.template([
@@ -27,8 +28,9 @@ splat.ReviewsView = Backbone.View.extend({
         var self = this;
         var reviewThumbView = new splat.ReviewThumb();
         var reviewerView = new splat.Reviewer();
+        console.log(this);
         $(self.el).append(reviewerView.template());
-        this.collection.each(function(review) {
+        this.model.collection.each(function(review) {
             if (review.get('movieId') === self.id) {
                 var html = reviewThumbView.template(review.toJSON());
                 $(self.el).append(html);
@@ -39,8 +41,28 @@ splat.ReviewsView = Backbone.View.extend({
         return this;
     },
 
-    reviewSave: function() {
-        alert("it works");
+    change: function(event) {
+        
+        var change = {};
+
+        change[event.target.name] = event.target.value;
+
+        this.model.set(change);
+        console.log(event.target.value);
+        // alert("it works");
+    },
+
+    reviewSave: function() {        
+        this.model.url = "/movies/" + this.id + "/reviews";
+        this.model.collection.create(this.model, {
+            wait: true,
+            success: function(model, response) {
+                consle.log("saved review");
+            },
+            failure: function(model, response) {
+                console.log("The model failed");
+            }
+        });
     }
 
 });
