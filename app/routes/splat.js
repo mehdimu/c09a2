@@ -145,16 +145,29 @@ exports.getReviews = function(req, res) {
 
 exports.addReview = function(req, res) {
     var freshness;
+    var id = req.params.id;
     if (req.body.rating === 'fresh') {
         freshness = 1.0;
     }
     else {
         freshness = 0.0;
     }
+
     delete req.body.rating;
     req.body.freshness = freshness;
     req.body.movieId = req.params.id;
-    console.log(req.body);
+
+
+    MovieModel.findByIdAndUpdate(id, { $inc: {freshTotal: 1, freshVotes: freshness}}, function(err, movie) {
+        if (err) {
+            console.log(err.message);
+            // res.status(500).send(err.message);
+        }
+        else {
+            console.log("successfully saved");
+            // res.send(movie);
+        }
+    });
 
     var review = new ReviewModel(req.body);
     review.save(function(err, entry) {

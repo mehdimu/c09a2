@@ -7,8 +7,6 @@ splat.Review = Backbone.Model.extend({
     idAttribute: "_id",	// to match localStorage, which uses _id rather than id
 
     initialize: function() {
-
-
     },
 
     defaults: {

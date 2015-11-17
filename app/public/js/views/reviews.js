@@ -41,14 +41,10 @@ splat.ReviewsView = Backbone.View.extend({
     },
 
     change: function(event) {
-
         var change = {};
-
         change[event.target.name] = event.target.value;
-
         this.model.set(change);
         console.log(event.target.value);
-        // alert("it works");
     },
 
     reviewSave: function() {
