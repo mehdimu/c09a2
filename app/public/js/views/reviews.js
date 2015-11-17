@@ -13,7 +13,8 @@ splat.ReviewsView = Backbone.View.extend({
             "<% reviewTemplate(review.toJSON()); %>",
     ].join('')),
 
-    initialize: function() {
+    initialize: function(options) {
+        this.options = options || {};
         // other stuff ? ...
         // invoke showScore and renderReviews methods when collection is sync'd
         this.listenTo(this.reviews, "sync", this.showScore);
@@ -28,7 +29,7 @@ splat.ReviewsView = Backbone.View.extend({
         var reviewThumbView = new splat.ReviewThumb();
         var reviewerView = new splat.Reviewer();
         console.log(this);
-        $(self.el).append(reviewerView.template());
+        $(self.el).append(reviewerView.template(this.options.moviemodel.toJSON()));
         this.model.collection.each(function(review) {
             if (review.get('movieId') === self.id) {
                 var html = reviewThumbView.template(review.toJSON());

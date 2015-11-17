@@ -10,7 +10,7 @@ splat.Review = Backbone.Model.extend({
     },
 
     defaults: {
-      freshness: 0.0,
+      freshness: 1,
       reviewText: "",
       reviewName: "",
       reviewAffil: "",

@@ -22,7 +22,7 @@ splat.AppRouter = Backbone.Router.extend({
         this.movies = new splat.Movies();  // Movies collection
         splat.moviesView = new splat.MoviesView({collection:this.movies});
         this.reviews = new splat.Reviews();
-        splat.reviewsView = new splat.ReviewsView({collection: this.reviews});
+        // splat.reviewsView = new splat.ReviewsView({collection: this.reviews});
         // create a jQuery promise to gate access to the fetched collection
         this.moviesLoaded = this.movies.fetch();
         this.reviewsLoaded = this.reviews.fetch();
@@ -63,8 +63,12 @@ splat.AppRouter = Backbone.Router.extend({
         var review = new splat.Review();
         review.collection = this.reviews;
         this.reviewsLoaded.done(function() {
-            splat.reviewsView = new splat.ReviewsView({model: review, id: id});
-            splat.app.showView('#content', splat.reviewsView);
+            self.moviesLoaded.done(function() {
+                var movieModel = self.movies.get(id);
+                splat.reviewsView = new splat.ReviewsView({model: review, id: id, moviemodel: movieModel});
+                splat.app.showView('#content', splat.reviewsView);
+            })
+
         });
     },
 

@@ -151,6 +151,7 @@ exports.getReviews = function(req, res) {
 exports.addReview = function(req, res) {
     var freshness;
     var id = req.params.id;
+    console.log(req.body);
     console.log(req.body.rating);
     if (req.body.rating === 'fresh') {
         freshness = 1.0;

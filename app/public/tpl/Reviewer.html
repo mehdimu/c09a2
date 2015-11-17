@@ -1,8 +1,9 @@
 <div class="form-horizontal">
 
-	<input type="radio" name="rating" class="reviewattr" value="fresh">Fresh</input><img src="/img/fresh.gif">
-	<input type="radio" name="rating" class="reviewattr" value="rotten">Rotten</input><img src="/img/rotten.gif">
-
+	<input type="radio" name="rating" class="reviewattr" value="fresh" >Fresh</input><img src="/img/fresh.gif">
+	<input type="radio" name="rating" class="reviewattr" value="rotten" checked="checked">Rotten</input><img src="/img/rotten.gif">
+  <% if (freshTotal  > 0) { %>Reviews <%= (freshVotes/freshTotal * 100).toFixed(2) %>% (<%= freshTotal %>)
+  <% } else { %>No Reviews<% }  %>
 	<div>
     	<label for="reviewtext" class="control-label">Enter your review</label>
     	<textarea rows="5" cols="180" class="reviewattr" placeholder="Enter your review" name="reviewText"></textarea>
