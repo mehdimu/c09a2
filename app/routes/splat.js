@@ -142,6 +142,18 @@ exports.getReviews = function(req, res) {
 }
 
 exports.addReview = function(req, res) {
+    var freshness;
+    if (req.body.rating === 'fresh') {
+        freshness = 1.0;
+    }
+    else {
+        freshness = 0.0;
+    }
+    delete req.body.rating;
+    req.body.freshness = freshness;
+    req.body.movieId = req.params.id;
+    console.log(req.body);
+
     var review = new ReviewModel(req.body);
     review.save(function(err, entry) {
         if (err) {

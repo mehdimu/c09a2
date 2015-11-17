@@ -1,6 +1,9 @@
 <div class="editActions">
     <input type="button" id="moviesave" class="btn btn-primary save authclass" name="save" value="Save Changes"/>
     <input type="button" id="moviedel" class="btn btn-danger delete authclass" name="delete" value="Delete Movie"/>
+    <% if (typeof _id  != 'undefined') { %><a href="#movies/<%= _id %>/reviews" class="btn btn-info">Reviews</a>
+    Reviews <%= reviewavg %>% (<%= reviewcount %>)
+    <% } %>
 </div>
 
 <!-- note form name attributes match Movie model attribute names so no mapping

@@ -65,9 +65,7 @@ splat.AppRouter = Backbone.Router.extend({
         this.reviewsLoaded.done(function() {
             splat.reviewsView = new splat.ReviewsView({model: review, id: id});
             splat.app.showView('#content', splat.reviewsView);
-        })
-
-        
+        });
     },
 
     editMovie: function(id) {
@@ -133,7 +131,7 @@ Backbone.View.prototype.close = function () {
 };
 
 splat.utils.loadTemplates(['Home', 'Header', 'About', 'MovieThumb',
-    			'MovieForm', 'MovieImg', 'Details', 'Reviews', 'ReviewThumb', 
+    			'MovieForm', 'MovieImg', 'Details', 'Reviews', 'ReviewThumb',
                 'Reviewer' ] , function() {
     splat.app = new splat.AppRouter();
     Backbone.history.start();

@@ -11,7 +11,12 @@ splat.MovieForm = Backbone.View.extend({
     },
 
     render:function () {
-        this.$el.html(this.template(this.model.toJSON()));
+        console.log(this.model.toJSON());
+        console.log(this.model);
+        var params = this.model.toJSON();
+        params.reviewcount = 2;
+        params.reviewavg = 67;
+        this.$el.html(this.template(params));
         return this;
     },
 
@@ -77,7 +82,9 @@ splat.MovieForm = Backbone.View.extend({
                 // Set the URL, to reflect the assigned movie-id for new movies
                 if (newMovie) {
                     splat.app.navigate('movies/' + model._id, {replace:true});
-            	    model.reviews = '/movies/' + model._id + '/reviews';
+                    model.reviews = new splat.Reviews();
+                    model.reviews.url = '/movies/' + model._id + '/reviews';
+            	    // model.reviews = '/movies/' + model._id + '/reviews';
                 };
                 splat.utils.showAlert('Success!', 'Movie saved', 'alert-success');
             },

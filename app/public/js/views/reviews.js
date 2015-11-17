@@ -8,7 +8,7 @@ splat.ReviewsView = Backbone.View.extend({
         "click #reviewsave" : "reviewSave",
         "change .reviewattr" : "change",
     },
-    
+
     reviewsTemplate: _.template([
             "<% reviewTemplate(review.toJSON()); %>",
     ].join('')),
@@ -16,7 +16,6 @@ splat.ReviewsView = Backbone.View.extend({
     initialize: function() {
         // other stuff ? ...
         // invoke showScore and renderReviews methods when collection is sync'd
-        console.log("i am in initialize");
         this.listenTo(this.reviews, "sync", this.showScore);
         this.listenTo(this.reviews, "sync", this.renderReviews);
     },
@@ -42,7 +41,7 @@ splat.ReviewsView = Backbone.View.extend({
     },
 
     change: function(event) {
-        
+
         var change = {};
 
         change[event.target.name] = event.target.value;
@@ -52,12 +51,12 @@ splat.ReviewsView = Backbone.View.extend({
         // alert("it works");
     },
 
-    reviewSave: function() {        
+    reviewSave: function() {
         this.model.url = "/movies/" + this.id + "/reviews";
         this.model.collection.create(this.model, {
             wait: true,
             success: function(model, response) {
-                consle.log("saved review");
+                console.log("saved review");
             },
             failure: function(model, response) {
                 console.log("The model failed");
