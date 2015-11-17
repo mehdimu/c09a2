@@ -119,6 +119,12 @@ exports.editMovie = function(req, res) {
 }
 
 exports.deleteMovie = function(req, res) {
+    ReviewModel.remove({movieId: req.params.id}, function(err, movie) {
+        if (err) {
+            console.log(err.message);
+        }
+    });
+
     MovieModel.remove({_id: req.params.id}, function(err, movie) {
         if (err) {
             console.log(err.message);
@@ -137,7 +143,6 @@ exports.getReviews = function(req, res) {
         }
         review.forEach(function(item) {
             console.log("Received a GET request for _id: " + item._id);
-            console.log("Send reviews");
         })
         res.send(review);
     });
