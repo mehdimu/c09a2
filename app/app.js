@@ -83,6 +83,8 @@ app.get('/movies/:id/reviews', splat.getReviews);
 
 app.post('/movies/:id/reviews', splat.addReview);
 
+app.get('/movies/:id/video', splat.playMovie);
+
 // ADD CODE to support other routes listed on assignment handout
 
 // location of app's static content ... may need to ADD CODE
