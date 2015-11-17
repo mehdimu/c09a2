@@ -6,7 +6,7 @@ splat.ReviewsView = Backbone.View.extend({
 
     events: {
         "click #reviewsave" : "reviewSave",
-        "change .reviewattr" : "change",
+        "change .reviewattr" : "change"
     },
 
     reviewsTemplate: _.template([

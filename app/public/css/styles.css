@@ -4,10 +4,9 @@ body {
     color: white;
 }
 
-#opt{
-    color: black;
+#sortOrd{
+    color:black;
 }
-#sortord{   color: black; font-size: 20px;}
 .brand {
     font-family: 'Arvo';
 }
@@ -82,8 +81,14 @@ h5 {
     text-align: right;
 }
 
+.thumbnail #parent-div{
+	display: flex;
+}
 .thumbnail .details {
     padding: 0 1em;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
 }
 
 img.thumbnail {
