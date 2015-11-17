@@ -156,8 +156,47 @@ exports.addReview = function(req, res) {
 }
 
 exports.playMovie = function(req, res) {
+    // compute absolute file-system video path from __dirname and URL with id
+    var file = path.resolve(__dirname,"..")+ req.url;// ADD CODE IM NOT SURE ABOUT THIS ALI
 
-}
+    // get HTTP request "range" header, and parse it to get starting byte position
+    var range = req.headers.range; // ADD CODE to access range header
+    var positions = range.replace(/bytes=/, "").split("-"); //ADD CODE TO GET POSITIONS
+    var start = parseInt(positions[0], 10); // ADD CODE to compute starting byte position
+
+    // get a file-stats object for the requested video file, including its size
+    fs.stat(file, function(err, stats) {
+        // set end position from range header or default to video file size
+	var end = partialend ? parseInt(partialend, 10) : total - 1; // ADD CODE
+	var chunksize = (end-start)+1; // set chunksize to be the difference between end and start values +1
+
+      	// send HTTP "partial-content" status (206) together with
+	// HTML5-compatible response-headers describing video being sent
+      	res.writeHead(206, {
+	    // ADD CODE - see tutorial 7 classroom slide #22
+			   "Content-Range": "bytes " + start + "-" + end + "/" + total, 
+                        "Content-Length": chunksize,
+                        "Accept-Ranges": "bytes",
+                        "Content-Type":"video/mp4"
+      	});
+
+      	// create ReadStream object, specifying start, end values computed
+	// above to read range of bytes rather than entire file
+      	var stream = fs.createReadStream(file, { start: start, end: end })
+        // when ReadStream is open
+        .on("open", function() {
+          // use stream pipe() method to send the HTTP response object,
+	  // with flow automatically managed so destination is not overwhelmed
+            // ADD CODE
+		readStream.pipe(res);
+        // when error receiving data from stream, send error back to client.
+        // stream is auto closed
+        }).on("error", function(err) {
+            // ADD CODE
+	     res.end(err);
+        });
+    });
+};
 
 // NOTE, you would use uploadImage only if you chose to implement
 // image-upload using Blobs with the HTML5 API.  If instead your
