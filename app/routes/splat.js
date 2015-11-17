@@ -151,8 +151,10 @@ exports.getReviews = function(req, res) {
 exports.addReview = function(req, res) {
     var freshness;
     var id = req.params.id;
+    console.log(req.body.rating);
     if (req.body.rating === 'fresh') {
         freshness = 1.0;
+        console.log(freshness);
     }
     else {
         freshness = 0.0;
@@ -164,6 +166,7 @@ exports.addReview = function(req, res) {
 
 
     MovieModel.findByIdAndUpdate(id, { $inc: {freshTotal: 1, freshVotes: freshness}}, function(err, movie) {
+        console.log(req.body.rating);
         if (err) {
             console.log(err.message);
             // res.status(500).send(err.message);
@@ -237,23 +240,23 @@ exports.playMovie = function(req, res) {
 // server saves images directly from your model's poster value,
 // you do NOT need the uploadImage route handler
 // upload an image file; returns image file-path on server
-// exports.uploadImage = function(req, res) {
-//     // req.files is an object, attribute "file" is the HTML-input name attr
-//     var filePath = req.files. ...   // ADD CODE to get file path
-//         fileType = req.files. ...   // ADD CODE to get MIME type
+ exports.uploadImage = function(req, res) {
+     // req.files is an object, attribute "file" is the HTML-input name attr
+     var filePath = req.files.path;   // ADD CODE to get file path
+         fileType = req.files.type;   // ADD CODE to get MIME type
 //         // extract the MIME suffix for the user-selected file
-//         suffix = // ADD CODE
+         suffix = // ADD CODE
 //         // imageURL is used as the value of a movie-model poster field
 // 	// id parameter is the movie's "id" attribute as a string value
-//         imageURL = 'img/uploads/' + req.params.id + suffix,
+         imageURL = 'img/uploads/' + req.params.id + suffix,
 //         // rename the image file to match the imageURL
-//         newPath = __dirname + '/../public/' + imageURL;
-//     fs.rename(filePath, newPath, function(err) {
-//         if (!err) {
-//             res.status(200).send(imageURL);
-//         } else {
-//             res.status(500).send("Sorry, unable to upload poster image at this time ("
-//                 +err.message+ ")" );
-// 	}
-//     });
-// };
+         newPath = __dirname + '/../public/' + imageURL;
+     fs.rename(filePath, newPath, function(err) {
+         if (!err) {
+             res.status(200).send(imageURL);
+         } else {
+             res.status(500).send("Sorry, unable to upload poster image at this time ("
+                 +err.message+ ")" );
+ 	}
+     });
+};
