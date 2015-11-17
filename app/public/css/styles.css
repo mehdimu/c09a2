@@ -81,8 +81,14 @@ h5 {
     text-align: right;
 }
 
+.thumbnail #parent-div{
+	display: flex;
+}
 .thumbnail .details {
     padding: 0 1em;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
 }
 
 img.thumbnail {
