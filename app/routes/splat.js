@@ -89,7 +89,20 @@ exports.getMovies = function(req, res) {
 }
 
 exports.addMovie = function(req, res) {
+    
+    if (req.body.poster != '/img/placeholder.jpg') {
+        var base64Data = req.body.poster.replace(/^data:image\/jpeg;base64,/, "");
+
+        var file = path.resolve(__dirname,"../public/img/" + req.body._id + ".jpg");
+        
+        fs.writeFile(file, base64Data, 'base64', function(err) {
+          console.log(err);
+        }); 
+        req.body.poster = "/img/" + req.body._id + ".jpg";
+    }        
+
     var movie = new MovieModel(req.body);
+
     movie.save(function(err, doc) {
         if (err) {
             console.log(err.message);
@@ -104,7 +117,17 @@ exports.addMovie = function(req, res) {
 
 exports.editMovie = function(req, res) {
     var id = req.body._id;
-    console.log(req.body);
+    
+    var base64Data = req.body.poster.replace(/^data:image\/jpeg;base64,/, "");
+
+    var file = path.resolve(__dirname,"../public/img/" + id + ".jpg");
+    
+    fs.writeFile(file, base64Data, 'base64', function(err) {
+      console.log(err);
+    });
+
+    req.body.poster = "/img/" + id + ".jpg";
+
     delete req.body._id;
     MovieModel.findByIdAndUpdate(id, { $set: req.body}, function(err, movie) {
         if (err) {
@@ -195,7 +218,7 @@ exports.playMovie = function(req, res) {
     console.log("got something");
     console.log(__dirname);
     // compute absolute file-system video path from __dirname and URL with id
-    var file = path.resolve(__dirname,"../public/videos/" + req.params.id + ".ogx");// ADD CODE IM NOT SURE ABOUT THIS ALI
+    var file = path.resolve(__dirname,"../public/videos/" + req.params.id + ".ogx");
     console.log(file);
     // console.log(req.params.id);
     // get HTTP request "range" header, and parse it to get starting byte position

@@ -122,7 +122,7 @@ splat.Movie = Backbone.Model.extend({
       freshTotal: 0.0,
       freshVotes: 0.0,
       trailer: "",
-      poster: "img/placeholder.png",
+      poster: "img/placeholder.jpg",
       dated: new Date()
    }
 
