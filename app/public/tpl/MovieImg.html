@@ -1,4 +1,4 @@
-<div>
+
   <% if (freshTotal > 0 && (freshVotes/freshTotal * 100).toFixed(2) >49) { %>  <p id="reviewShow">currently rated: <img src="/img/fresh.gif"> <%= (freshVotes/freshTotal * 100).toFixed(2) %>% (<%= freshTotal %>)</p><a href="#movies/<%= _id %>/reviews"><p id="blueShow">Review/s</p></a>
   <% } 
  if (freshTotal > 0 && (freshVotes/freshTotal * 100).toFixed(2) <49) { %>  <p id="reviewShow">currently rated: <img src="/img/rotten.gif"> <%= (freshVotes/freshTotal * 100).toFixed(2) %>% (<%= freshTotal %>)</p><a href="#movies/<%= _id %>/reviews"><p id="blueShow">Review/s</p></a>
@@ -8,7 +8,7 @@
   <p id="dropImage">
     <img id="editImage" class="editImage img-responsive" src="<%= poster %>"/>
   </p>
-
+<div>
   <div class="imageSelect">
      <label for="imageInput" class="fileInput btn btn-info uploadLabel">
        <input id="imageInput" name="file" type="file" 

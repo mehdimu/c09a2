@@ -9,6 +9,7 @@
 }
 .reviewthumbbar{
     height:35px;
+margin-top:2px;
     margin-right:10px;
     margin-left:10px;
     border-radius:4px;
@@ -40,8 +41,11 @@ text-align:left !important;
 height:100%;
 width:100%;}
 
-
+#reviewsave{
+margin-top:5px;}
 .left-reviews{
+display:inline;
+clear:
 }
 #reviewShow{
     color:red;
