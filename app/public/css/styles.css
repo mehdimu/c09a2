@@ -23,6 +23,16 @@
 }
 #ReviewNametext{color:white;}
 
+#ReviewThumb{color:yellow;position:absolute;}
+
+#parent1{
+    position:relative;
+}
+
+#image{
+    position:absolute;
+height:100%;
+width:100%;}
 
 #reviewShow{
     color:red;

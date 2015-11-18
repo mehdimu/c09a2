@@ -8,14 +8,19 @@
             Your browser does not support the <code>video</code> element.
         </video>
         <div id="parent-div">
-          <div class="details">
+            <div class="details col-sm-3" id="parent1">
+            <strong><% if (freshTotal > 0 && (freshVotes/freshTotal * 100).toFixed(2) >49) { %><p id="ReviewThumb">REVIEW</p><img id="image" src="/img/tomato.png"> <%= (freshVotes/freshTotal * 100).toFixed(2) %>% (<%= freshTotal %>)
+  <% } 
+ if (freshTotal > 0 && (freshVotes/freshTotal * 100).toFixed(2) <49) { %><p id="ReviewThumb">REVIEW</p><img id="image" src="/img/tomato.png"> <%= (freshVotes/freshTotal * 100).toFixed(2) %>% (<%= freshTotal %>)
+  <% } 
+  else { %>No Reviews<% }  %></strong></div>
+          <div class="details col-md-6">
             <strong class="thumbtitle"><%= title %></strong>
 		        (<%= released %>)<br/>
             <strong>Directed by: </strong><%= director %><br/>
             <strong>Starring: </strong><%= starring %><br/>
             <strong>Genres: </strong><%= genre %> Rating: <%= rating %> <br/>
-            <strong><% if (freshTotal  > 0) { %>Reviews <%= (freshVotes/freshTotal * 100).toFixed(2) %>% (<%= freshTotal %>)
-            <% } else { %>No Reviews<% }  %></strong>
+            </div>
         </div>
 	 </div>
       </a>
