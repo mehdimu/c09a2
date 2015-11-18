@@ -1,9 +1,23 @@
 <div class="editActions">
     <input type="button" id="moviesave" class="btn btn-primary save authclass" name="save" value="Save Changes"/>
     <input type="button" id="moviedel" class="btn btn-danger delete authclass" name="delete" value="Delete Movie"/>
-    <% if (typeof _id  != 'undefined' && freshTotal <= 0) { %><a href="#movies/<%= _id %>/reviews"><img src="/img/rotten_lg.png"></a>
-    <% if (freshTotal  > 0) { %>Reviews <%= (freshVotes/freshTotal * 100).toFixed(2) %>% (<%= freshTotal %>)
-    <% } else { %><% } } %>
+    
+    <% if (typeof _id  != 'undefined') { %>
+    
+    <span id="swatchthumb">
+      <% if (freshTotal > 0 && (freshVotes/freshTotal * 100).toFixed(0) > 49) { %><a href="#movies/<%= _id %>/reviews"><img src="/img/fresh_lg.png"></a>
+      <p id="text"><%= (freshVotes/freshTotal * 100).toFixed(0) %>%(<%= freshTotal %>)</p> 
+
+      <% } if (freshTotal > 0 && (freshVotes/freshTotal * 100).toFixed(0) <= 49) { %><a href="#movies/<%= _id %>/reviews"><img src="/img/rotten_lg.png"></a>
+       <p id="text"><%= (freshVotes/freshTotal * 100).toFixed(0) %>%(<%= freshTotal %>)</p> 
+
+      <% } if (freshTotal === 0) { %><a href="#movies/<%= _id %>/reviews"><img src="/img/rotten_lg.png"></a>
+       <p id="text">N/A</p>  <% } %>
+    </span>
+    <% } %>
+
+    
+
 </div><!-- note form name attributes match Movie model attribute names so no mapping
      is needed - same idea as JSP mapping to Bean fields -->
 <div class="form-horizontal">

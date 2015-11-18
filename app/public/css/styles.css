@@ -334,3 +334,17 @@ div.has-error input {
 #dropImage.active { border: solid red; }
 
 .thumbtitle { font-size: 120%; }
+
+#text {
+    z-index: 1;
+    position: absolute;
+    top: 0px;
+    left: 25%;
+    color: white;
+    font: bold 12px/25px Helvetica, Sans-Serif;
+
+}
+
+#swatchthumb {
+    position: relative;
+}

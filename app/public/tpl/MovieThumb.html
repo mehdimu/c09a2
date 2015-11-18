@@ -9,22 +9,30 @@
         </video>
 		</a>
 		<div id="parent-div">
-        <div id="picture">
-            <strong><% if (freshTotal > 0 && (freshVotes/freshTotal * 100).toFixed(2) >49) { %><a href="#movies/<%= _id %>/reviews"><img src="/img/fresh_lg.png"></a> <h6><%= (freshVotes/freshTotal * 100).toFixed(2) %>%(<%= freshTotal %>)</h6>
-  <% } 
- if (freshTotal > 0 && (freshVotes/freshTotal * 100).toFixed(2) <49) { %><a href="#movies/<%= _id %>/reviews"><img src="/img/rotten_lg.png"></a> <h6><%= (freshVotes/freshTotal * 100).toFixed(2)%>% (<%= freshTotal %>)</h6>
-  <% } 
-  if (freshTotal <= 0) { %><a href="#movies/<%= _id %>/reviews"><img src="/img/rotten_lg.png"></a><h6>N/A</h6><% }  %></strong>
-</div>
-<div class="details">
-  <a href="#movies/<%= _id %>">
-            <strong class="thumbtitle"><%= title %></strong>
+        <!-- <div id="picture"> -->
+          <span id="swatchthumb">
+            <!-- <strong> -->
+              <% if (freshTotal > 0 && (freshVotes/freshTotal * 100).toFixed(2) >49) { %><a href="#movies/<%= _id %>/reviews"><img src="/img/fresh_lg.png"></a>
+                <p id="text"><%= (freshVotes/freshTotal * 100).toFixed(0) %>%(<%= freshTotal %>)</p> 
+
+              <% } if (freshTotal > 0 && (freshVotes/freshTotal * 100).toFixed(2) <49) { %><a href="#movies/<%= _id %>/reviews"><img src="/img/rotten_lg.png"></a>
+               <p id="text"><%= (freshVotes/freshTotal * 100).toFixed(0) %>%(<%= freshTotal %>)</p>  
+
+              <% }  if (freshTotal == 0) { %><a href="#movies/<%= _id %>/reviews"><img src="/img/rotten_lg.png"></a><p id="text">N/A</p><% }  %> 
+            <!-- </strong> -->
+          </span>
+        <!-- </div> -->
+  
+
+    <div class="details">
+      <a href="#movies/<%= _id %>">
+        <strong class="thumbtitle"><%= title %></strong>
 		    (<%= released %>)<br/>
-            <strong>Directed by: </strong><%= director %><br/>
-            <strong>Starring: </strong><%= starring %><br/>
-            <strong>Genres: </strong><%= genre %> Rating: <%= rating %> </a><br/>
+        <strong>Directed by: </strong><%= director %><br/>
+        <strong>Starring: </strong><%= starring %><br/>
+        <strong>Genres: </strong><%= genre %> Rating: <%= rating %> </a><br/>
         </div>
-</div>      
+    </div>      
 
     </div>
   </div>
