@@ -23,7 +23,7 @@ var http = require("http"),   // ADD CODE
     methodOverride = require("method-override"),
     directory = require("serve-index"),
     errorHandler = require("errorhandler"),
-    //basicAuth = require("basic-auth-connect"),  // optional, for HTTP auth
+    basicAuth = require("basic-auth-connect"),  // optional, for HTTP auth
 
     // config is an object module, that defines app-config attribues,
     // such as "port", DB parameters
@@ -39,7 +39,7 @@ app.set('port', process.env.PORT || config.port);
 
 // activate basic HTTP authentication (to protect your solution files)
 // REPLACE username/password, but DO NOT use your utorid credentials!!
-//app.use(basicAuth('splatname', 'splatpassword'));
+app.use(basicAuth('splatname', 'splatpassword'));
 
 // change param value to control level of logging  ... ADD CODE
 app.use(logger("default"));  // 'default', 'short', 'tiny', 'dev'
