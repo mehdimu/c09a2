@@ -1,10 +1,9 @@
-<div class="reviews col-lg-2 col-md-3 col-sm-4 col-xs-6">
+<div class= "reviewthumbbar reviews col-lg-2 col-md-3 col-sm-4 col-xs-6">
     <p>
         <img alt="Rating Image" src="img/<% if (freshness === 1) { %>fresh.gif" <% } else { %>rotten.gif"/> <% } %>
         <q><%= reviewText %></q>
     </p>
-    <p>
-        <img src="img/critic.gif" alt="Critic"/> <%= reviewName %> <br>
-        <span><%= reviewAffil %></span>
-    </p>
+    <p id="ReviewNametext">
+        <img src="img/critic.gif" alt="Critic"/> <%= reviewName %> <br> </p>
+        <p id="ReviewAffiltext"><span><%= reviewAffil %></span></p>
 </div>
