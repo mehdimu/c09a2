@@ -339,12 +339,13 @@ div.has-error input {
     z-index: 1;
     position: absolute;
     top: 10%;
-    left: 25%;
+    left: 10%;
     color: white;
-    font: bold 16px/25px Helvetica, Sans-Serif;
+    font: bold 12x/25px Helvetica, Sans-Serif;
 
 }
 
 #swatchthumb {
     position: relative;
 }
+
