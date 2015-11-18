@@ -70,6 +70,7 @@ splat.AppRouter = Backbone.Router.extend({
             })
 
         });
+    	this.headerView.selectMenuItem();
     },
 
     editMovie: function(id) {

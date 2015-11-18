@@ -3,12 +3,12 @@
 
 	<input type="radio" name="rating" class="reviewattr" value="fresh" >Fresh</input><img src="/img/fresh.gif">
 	<input type="radio" name="rating" class="reviewattr" value="rotten" checked="checked">Rotten</input><img src="/img/rotten.gif">
-  <p id="reviewShow">
+  <p id="spacers">
   <% if (freshTotal > 0 && (freshVotes/freshTotal * 100).toFixed(2) >49) { %>currently rated: <img src="/img/fresh.gif"> <%= (freshVotes/freshTotal * 100).toFixed(2) %>% (<%= freshTotal %>)
   <% } 
  if (freshTotal > 0 && (freshVotes/freshTotal * 100).toFixed(2) <49) { %>currently rated: <img src="/img/rotten.gif"> <%= (freshVotes/freshTotal * 100).toFixed(2) %>% (<%= freshTotal %>)
   <% } 
-  else { %>No Reviews<% }  %>
+  if (freshTotal <=0) { %>No Reviews<% }  %>
 </p>
   </div>
 	<div>

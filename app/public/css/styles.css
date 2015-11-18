@@ -17,6 +17,16 @@
     background-color:#FFFFCC;
     color:black;
 }
+
+
+.thumbnail h6{
+position:absolute !important;
+padding-left:10px !important;
+top:150px!important;
+
+text-align:left !important;
+
+}
 #ReviewAffiltext{
     color:white;
  font: italic 15px Arial, serif;
@@ -25,21 +35,35 @@
 
 #ReviewThumb{color:yellow;position:absolute;}
 
-#parent1{
-    position:relative;
-}
-
 #image{
-    position:absolute;
+    position:relative;
 height:100%;
 width:100%;}
 
+
+.left-reviews{
+}
 #reviewShow{
     color:red;
-    text-indent: 100px;
+    font: italic bold 20px Arial, serif;
+	text-align:left;
+float:left;
+clear:left;
+}
+#blueShow{
+    color:blue;
+    font: italic bold 20px Arial, serif;
+	text-align:right;
+float:right;
+clear:right;
+
+}
+
+#spacers{
+color:red;
     font: italic bold 20px Arial, serif;
     display:inline-block;
-}
+text-indent:100px;}
 
 body {
     padding-top: 60px; /* shift container to bottom of heading */
@@ -126,6 +150,11 @@ h5 {
     text-align: right;
 }
 
+
+#picture{
+width:100%;
+}
+
 .thumbnail #parent-div{
 	display: flex;
 }
@@ -135,6 +164,7 @@ h5 {
     overflow: hidden;
     width:100%;
     white-space: nowrap;
+    position:relative;
 }
 
 img.thumbnail {
