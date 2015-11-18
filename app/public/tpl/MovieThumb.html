@@ -13,16 +13,16 @@
           <span id="swatchthumb">
             <!-- <strong> -->
               <% if (freshTotal > 0 && (freshVotes/freshTotal * 100).toFixed(2) >49) { %><a href="#movies/<%= _id %>/reviews"><img src="/img/fresh_lg.png"></a>
-                <p id="text"><%= (freshVotes/freshTotal * 100).toFixed(0) %>%(<%= freshTotal %>)</p> 
+                <p id="text"><%= (freshVotes/freshTotal * 100).toFixed(0) %>%(<%= freshTotal %>)</p>
 
               <% } if (freshTotal > 0 && (freshVotes/freshTotal * 100).toFixed(2) <49) { %><a href="#movies/<%= _id %>/reviews"><img src="/img/rotten_lg.png"></a>
-               <p id="text"><%= (freshVotes/freshTotal * 100).toFixed(0) %>%(<%= freshTotal %>)</p>  
+               <p id="text"><%= (freshVotes/freshTotal * 100).toFixed(0) %>%(<%= freshTotal %>)</p>
 
-              <% }  if (freshTotal == 0) { %><a href="#movies/<%= _id %>/reviews"><img src="/img/rotten_lg.png"></a><p id="text">N/A</p><% }  %> 
+              <% }  if (freshTotal === 0) { %><a href="#movies/<%= _id %>/reviews"><img src="/img/rotten_lg.png"></a><p id="text">N/A</p><% }  %>
             <!-- </strong> -->
           </span>
         <!-- </div> -->
-  
+
 
     <div class="details">
       <a href="#movies/<%= _id %>">
@@ -32,7 +32,7 @@
         <strong>Starring: </strong><%= starring %><br/>
         <strong>Genres: </strong><%= genre %> Rating: <%= rating %> </a><br/>
         </div>
-    </div>      
+    </div>
 
     </div>
   </div>

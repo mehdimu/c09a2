@@ -338,10 +338,10 @@ div.has-error input {
 #text {
     z-index: 1;
     position: absolute;
-    top: 0px;
+    top: 10%;
     left: 25%;
     color: white;
-    font: bold 12px/25px Helvetica, Sans-Serif;
+    font: bold 16px/25px Helvetica, Sans-Serif;
 
 }
 

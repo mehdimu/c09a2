@@ -89,19 +89,13 @@ exports.getMovies = function(req, res) {
 }
 
 exports.addMovie = function(req, res) {
-    
-    if (req.body.poster != '/img/placeholder.jpg') {
-        var base64Data = req.body.poster.replace(/^data:image\/jpeg;base64,/, "");
-
-        var file = path.resolve(__dirname,"../public/img/" + req.body._id + ".jpg");
-        
-        fs.writeFile(file, base64Data, 'base64', function(err) {
-          console.log(err);
-        }); 
-        req.body.poster = "/img/" + req.body._id + ".jpg";
-    }        
 
     var movie = new MovieModel(req.body);
+
+    if (req.body.poster.match(/^data:image\/jpeg;base64,/)) {
+        saveImageToServer(req.body.poster, movie._id);
+        movie.poster = "/img/" + movie._id + ".jpg";
+    }
 
     movie.save(function(err, doc) {
         if (err) {
@@ -116,19 +110,16 @@ exports.addMovie = function(req, res) {
 }
 
 exports.editMovie = function(req, res) {
+
     var id = req.body._id;
-    
-    var base64Data = req.body.poster.replace(/^data:image\/jpeg;base64,/, "");
-
-    var file = path.resolve(__dirname,"../public/img/" + id + ".jpg");
-    
-    fs.writeFile(file, base64Data, 'base64', function(err) {
-      console.log(err);
-    });
-
-    req.body.poster = "/img/" + id + ".jpg";
-
     delete req.body._id;
+
+    if (req.body.poster.match(/^data:image\/jpeg;base64,/)) {
+        saveImageToServer(req.body.poster, id);
+
+        req.body.poster = "/img/" + id + ".jpg";
+    }
+
     MovieModel.findByIdAndUpdate(id, { $set: req.body}, function(err, movie) {
         if (err) {
             console.log(err.message);
@@ -138,6 +129,14 @@ exports.editMovie = function(req, res) {
             console.log("successfully saved");
             res.send(movie);
         }
+    });
+}
+
+var saveImageToServer = function(base64, id) {
+    var base64Data = base64.replace(/^data:image\/jpeg;base64,/, "");
+    var file = path.resolve(__dirname,"../public/img/" + id + ".jpg");
+    fs.writeFile(file, base64Data, 'base64', function(err) {
+      console.log(err);
     });
 }
 
@@ -264,23 +263,23 @@ exports.playMovie = function(req, res) {
 // server saves images directly from your model's poster value,
 // you do NOT need the uploadImage route handler
 // upload an image file; returns image file-path on server
- exports.uploadImage = function(req, res) {
-     // req.files is an object, attribute "file" is the HTML-input name attr
-     var filePath = req.files.path;   // ADD CODE to get file path
-         fileType = req.files.type;   // ADD CODE to get MIME type
-//         // extract the MIME suffix for the user-selected file
-         suffix = // ADD CODE
-//         // imageURL is used as the value of a movie-model poster field
-// 	// id parameter is the movie's "id" attribute as a string value
-         imageURL = 'img/uploads/' + req.params.id + suffix,
-//         // rename the image file to match the imageURL
-         newPath = __dirname + '/../public/' + imageURL;
-     fs.rename(filePath, newPath, function(err) {
-         if (!err) {
-             res.status(200).send(imageURL);
-         } else {
-             res.status(500).send("Sorry, unable to upload poster image at this time ("
-                 +err.message+ ")" );
- 	}
-     });
-};
+//  exports.uploadImage = function(req, res) {
+//      // req.files is an object, attribute "file" is the HTML-input name attr
+//      var filePath = req.files.path;   // ADD CODE to get file path
+//          fileType = req.files.type;   // ADD CODE to get MIME type
+// //         // extract the MIME suffix for the user-selected file
+//          suffix = // ADD CODE
+// //         // imageURL is used as the value of a movie-model poster field
+// // 	// id parameter is the movie's "id" attribute as a string value
+//          imageURL = 'img/uploads/' + req.params.id + suffix,
+// //         // rename the image file to match the imageURL
+//          newPath = __dirname + '/../public/' + imageURL;
+//      fs.rename(filePath, newPath, function(err) {
+//          if (!err) {
+//              res.status(200).send(imageURL);
+//          } else {
+//              res.status(500).send("Sorry, unable to upload poster image at this time ("
+//                  +err.message+ ")" );
+//  	}
+//      });
+// };
