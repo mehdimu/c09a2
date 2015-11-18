@@ -15,8 +15,7 @@ splat.Movie = Backbone.Model.extend({
         var rating = /^(PG)|(PG-13)|(R)|(NC-17)|NR$/;
         var duration = /^(\d)|(\d\d)|\d{3}$/;
         var synopsis = /^\w+(\s+\w+)*$/;  // OK to add other punctuation with \s
-        var trailer = /^(https?:\/\/\w+(\.\w+)*(\/[\w\.#]+)*\/?)?$/;
-
+        var trailer = /^(https|http)?:\/\/(www\.)?(\w|(\.\w))+(\/|\w)*(\/|\#)?(\w|\-|\.|\/|\d)+(\/)?$/;
         this.validators.title = function (value) {
             return (value && titleDirector.test(value)) ?
 		 {isValid: true}

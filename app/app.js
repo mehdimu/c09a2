@@ -39,7 +39,7 @@ app.set('port', process.env.PORT || config.port);
 
 // activate basic HTTP authentication (to protect your solution files)
 // REPLACE username/password, but DO NOT use your utorid credentials!!
-//app.use(basicAuth('username', 'password'));
+//app.use(basicAuth('splatname', 'splatpassword'));
 
 // change param value to control level of logging  ... ADD CODE
 app.use(logger("default"));  // 'default', 'short', 'tiny', 'dev'
@@ -71,18 +71,25 @@ app.get('/', splat.api);
 // Retrieve a single movie by its id attribute
 app.get('/movies/:id', splat.getMovie);
 
+// Retrieve a all movies
 app.get('/movies', splat.getMovies);
 
+// Add movies
 app.post('/movies', splat.addMovie);
 
+// Edit single movie by ID
 app.put('/movies/:id', splat.editMovie);
 
+// Delete single movie by ID
 app.delete('/movies/:id', splat.deleteMovie);
 
+// Retrieve all reviews by ID
 app.get('/movies/:id/reviews', splat.getReviews);
 
+// Add a review by ID
 app.post('/movies/:id/reviews', splat.addReview);
 
+// Add a video to an ID
 app.get('/movies/:id/video', splat.playMovie);
 
 // ADD CODE to support other routes listed on assignment handout

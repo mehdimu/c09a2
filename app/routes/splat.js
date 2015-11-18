@@ -76,6 +76,7 @@ exports.getMovie = function(req, res){
     });
 };
 
+// retrieve all movies
 exports.getMovies = function(req, res) {
     MovieModel.find(function(err, movie) {
         if (err) {
@@ -88,10 +89,10 @@ exports.getMovies = function(req, res) {
     });
 }
 
+//add a movie
 exports.addMovie = function(req, res) {
-
     var movie = new MovieModel(req.body);
-
+    //Saving poster-image by saving the movie model
     if (req.body.poster.match(/^data:image\/jpeg;base64,/)) {
         saveImageToServer(req.body.poster, movie._id);
         movie.poster = "/img/" + movie._id + ".jpg";
@@ -120,6 +121,7 @@ exports.editMovie = function(req, res) {
         req.body.poster = "/img/" + id + ".jpg";
     }
 
+    //Updating a movie by ID
     MovieModel.findByIdAndUpdate(id, { $set: req.body}, function(err, movie) {
         if (err) {
             console.log(err.message);
@@ -131,7 +133,7 @@ exports.editMovie = function(req, res) {
         }
     });
 }
-
+//Save poster images to the server instead by writing the url path
 var saveImageToServer = function(base64, id) {
     var base64Data = base64.replace(/^data:image\/jpeg;base64,/, "");
     var file = path.resolve(__dirname,"../public/img/" + id + ".jpg");
@@ -140,7 +142,9 @@ var saveImageToServer = function(base64, id) {
     });
 }
 
+//Delete model reviews
 exports.deleteMovie = function(req, res) {
+   //Find movie by Id to remove it
     ReviewModel.remove({movieId: req.params.id}, function(err, movie) {
         if (err) {
             console.log(err.message);
@@ -157,7 +161,7 @@ exports.deleteMovie = function(req, res) {
         }
     });
 }
-
+//Retrieve all reviews
 exports.getReviews = function(req, res) {
     ReviewModel.find(function(err, review) {
         if (err) {
@@ -173,11 +177,9 @@ exports.getReviews = function(req, res) {
 exports.addReview = function(req, res) {
     var freshness;
     var id = req.params.id;
-    console.log(req.body);
-    console.log(req.body.rating);
+    //Assign rating values
     if (req.body.rating === 'fresh') {
         freshness = 1.0;
-        console.log(freshness);
     }
     else {
         freshness = 0.0;
@@ -187,7 +189,7 @@ exports.addReview = function(req, res) {
     req.body.freshness = freshness;
     req.body.movieId = req.params.id;
 
-
+    //Update the freshness count
     MovieModel.findByIdAndUpdate(id, { $inc: {freshTotal: 1, freshVotes: freshness}}, function(err, movie) {
         console.log(req.body.rating);
         if (err) {
@@ -214,12 +216,8 @@ exports.addReview = function(req, res) {
 }
 
 exports.playMovie = function(req, res) {
-    console.log("got something");
-    console.log(__dirname);
     // compute absolute file-system video path from __dirname and URL with id
     var file = path.resolve(__dirname,"../public/videos/" + req.params.id + ".ogx");
-    console.log(file);
-    // console.log(req.params.id);
     // get HTTP request "range" header, and parse it to get starting byte position
     var range = req.headers.range; // ADD CODE to access range header
     var positions = range.replace(/bytes=/, "").split("-"); //ADD CODE TO GET POSITIONS
@@ -257,29 +255,3 @@ exports.playMovie = function(req, res) {
         });
     });
 };
-
-// NOTE, you would use uploadImage only if you chose to implement
-// image-upload using Blobs with the HTML5 API.  If instead your
-// server saves images directly from your model's poster value,
-// you do NOT need the uploadImage route handler
-// upload an image file; returns image file-path on server
-//  exports.uploadImage = function(req, res) {
-//      // req.files is an object, attribute "file" is the HTML-input name attr
-//      var filePath = req.files.path;   // ADD CODE to get file path
-//          fileType = req.files.type;   // ADD CODE to get MIME type
-// //         // extract the MIME suffix for the user-selected file
-//          suffix = // ADD CODE
-// //         // imageURL is used as the value of a movie-model poster field
-// // 	// id parameter is the movie's "id" attribute as a string value
-//          imageURL = 'img/uploads/' + req.params.id + suffix,
-// //         // rename the image file to match the imageURL
-//          newPath = __dirname + '/../public/' + imageURL;
-//      fs.rename(filePath, newPath, function(err) {
-//          if (!err) {
-//              res.status(200).send(imageURL);
-//          } else {
-//              res.status(500).send("Sorry, unable to upload poster image at this time ("
-//                  +err.message+ ")" );
-//  	}
-//      });
-// };
