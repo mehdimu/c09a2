@@ -38,7 +38,7 @@ var ReviewSchema = new mongoose.Schema({
 
 // Constraints
 // each title:director pair must be unique; duplicates are dropped
-MovieSchema.index({title: 1});  // ADD CODE
+MovieSchema.index({title: 1, director: 1});  // ADD CODE
 // ReviewSchema.index()
 
 // Models
